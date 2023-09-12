@@ -38,8 +38,10 @@ def plot_computation_time_by_kernel_size(kernel_range, direct_2d_convolution, ff
         result[i, 0] = s
         result[i, 1] = timeit.repeat(lambda: direct_2d_convolution(f, g, stride=(1, 1)), number=number, repeat=repeat)
         result[i, 1] /= number
+        result[i, 1] *= 1000
         result[i, 2] = timeit.repeat(lambda: fft_based_2d_convolution(f, g, stride=(1, 1)), number=number, repeat=repeat)
         result[i, 2] /= number
+        result[i, 2] *= 1000
 
     plt.figure(id, figsize=figure_size, dpi=80)
     plt.clf()
@@ -52,7 +54,7 @@ def plot_computation_time_by_kernel_size(kernel_range, direct_2d_convolution, ff
                      edgecolor='r', facecolor='r', linewidth=1, antialiased=True)
     title = f'Computation time for a {H}px by {W}px input signal in function of kernel size'
     plt.title(f"Figure {id} - {title}", fontsize=14)
-    plt.ylabel('Computation time (s)')
+    plt.ylabel('Computation time (ms)')
     plt.xlabel('Kernel size (px) square')
     plt.legend()
 
@@ -73,8 +75,10 @@ def plot_computation_time_by_input_size(input_range, direct_2d_convolution, fft_
         result[i, 0] = s
         result[i, 1] = timeit.repeat(lambda: direct_2d_convolution(f, g, stride=(1, 1)), number=number, repeat=repeat)
         result[i, 1] /= number
+        result[i, 1] *= 1000
         result[i, 2] = timeit.repeat(lambda: fft_based_2d_convolution(f, g, stride=(1, 1)), number=number, repeat=repeat)
         result[i, 2] /= number
+        result[i, 2] *= 1000
 
     plt.figure(id, figsize=figure_size, dpi=80)
     plt.clf()
@@ -87,6 +91,6 @@ def plot_computation_time_by_input_size(input_range, direct_2d_convolution, fft_
                      edgecolor='r', facecolor='r', linewidth=1, antialiased=True)
     title = f'Computation time for a kernel size of {M}px by {N}px in function of the input signal size'
     plt.title(f"Figure {id} - {title}", fontsize=14)
-    plt.ylabel('Computation time (s)')
+    plt.ylabel('Computation time (ms)')
     plt.xlabel('Input signal size (px) square')
     plt.legend()
